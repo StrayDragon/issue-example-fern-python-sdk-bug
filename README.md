@@ -1,8 +1,13 @@
 # issue-example-fern-python-sdk-bug
 
+> [!NOTE]
+>
 > The repo is used to reproduce the bug of the fern python sdk generated code. Part of upstream repo: https://github.com/StrayDragon/dify-openapi
+>
+> will archived or deleted in the future after the issue is fixed (https://github.com/fern-api/fern/issues/6293)
 
 The `process_rule` field in `UpdateDocumentByFileRequestData` cannot be used, otherwise an error will be reported.
+
 
 
 ## Version
