@@ -1,0 +1,13 @@
+[project]
+name = "issue-example-fern-python-sdk-bug"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "flask>=3.1.0",
+    "flask-swagger-ui>=4.11.1",
+    "httpx>=0.28.1",
+    "pydantic>=2.10.6",
+    "pyyaml>=6.0.2",
+]

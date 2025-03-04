@@ -1,0 +1,136 @@
+openapi: 3.0.0
+info:
+  title: Document API
+  description: API for managing documents in datasets
+  version: 1.0.0
+servers:
+- url: http://localhost:5000
+  description: Local development server
+paths:
+  /v1/datasets/{dataset_id}/documents/{document_id}/update-by-file:
+    post:
+      summary: Update document by file
+      description: Updates a document in a dataset by uploading a file
+      operationId: updateDocumentByFile
+      parameters:
+      - name: dataset_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: ID of the dataset
+      - name: document_id
+        in: path
+        required: true
+        schema:
+          type: string
+        description: ID of the document
+      - name: Authorization
+        in: header
+        required: true
+        schema:
+          type: string
+        description: Bearer {api_key}
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  description: Document configuration JSON as string
+                  properties:
+                    name:
+                      type: string
+                      description: Name of the document
+                    indexing_technique:
+                      type: string
+                      description: Indexing technique to use
+                      enum:
+                      - high_quality
+                    process_rule:
+                      type: object
+                      properties:
+                        mode:
+                          type: string
+                          enum:
+                          - custom
+                file:
+                  type: string
+                  format: binary
+                  description: File to upload
+              required:
+              - data
+              - file
+      responses:
+        '200':
+          description: Document updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  document:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      position:
+                        type: integer
+                      data_source_type:
+                        type: string
+                      data_source_info:
+                        type: object
+                        properties:
+                          upload_file_id:
+                            type: string
+                      dataset_process_rule_id:
+                        type: string
+                      name:
+                        type: string
+                      created_from:
+                        type: string
+                      created_by:
+                        type: string
+                      created_at:
+                        type: integer
+                      tokens:
+                        type: integer
+                      indexing_status:
+                        type: string
+                      error:
+                        type: string
+                        nullable: true
+                      enabled:
+                        type: boolean
+                      disabled_at:
+                        type: integer
+                        nullable: true
+                      disabled_by:
+                        type: string
+                        nullable: true
+                      archived:
+                        type: boolean
+                      display_status:
+                        type: string
+                      word_count:
+                        type: integer
+                      hit_count:
+                        type: integer
+                      doc_form:
+                        type: string
+                  batch:
+                    type: string
+        '400':
+          description: Invalid request
+        '401':
+          description: Unauthorized
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+security:
+- bearerAuth: []
